@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class IntOnlyArrayList {
 
     IntOnlyArrayList(){
@@ -6,20 +8,23 @@ public class IntOnlyArrayList {
     private int[] data = new int[0];
 
     public int get(int index){
-        try{
+        //Min måde at gøre det på
+/*        try{
             return data[index];
         }
-        catch (IndexOutOfBoundsException e){
-            e.printStackTrace();
+        catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Error! Index out of bounds. Cannot access index " + index + " for ArrayList length " + data.length);
             return 0;
-        }
-
-/*        if (index > data.length){
-            return 0;
-        }
-        else{
-            return data[index];
         }*/
+
+        //Med "throw new Exception"
+        if (index <= data.length && index >= 0){
+            return data[index];
+        }
+        else {
+            System.out.println("Error! Index out of bounds. Cannot access index " + index + " for ArrayList length " + data.length);
+            throw new ArrayIndexOutOfBoundsException();
+        }
     }
 
     public int size(){
@@ -38,16 +43,59 @@ public class IntOnlyArrayList {
     }
 
     public void remove(int index){
-        int[] newArr = new int[data.length-1];
+        if (index <= data.length && index >= 0){
+            int[] newArr = new int[data.length-1];
 
-        for (int i = 0; i<newArr.length; i++){
-            if (i == index){
-                continue;
+            for (int i = 0; i<newArr.length; i++){
+                if (i == index){
+                    continue;
+                }
+                else{
+                    newArr[i] = data[i];
+                }
             }
-            else{
-                newArr[i] = data[i];
-            }
+            data = newArr;
         }
-        data = newArr;
+        else{
+            System.out.println("Error! Index out of bounds. Cannot remove entry at index " + index + " for ArrayList length " + data.length);
+            throw new ArrayIndexOutOfBoundsException();
+        }
+    }
+
+    //clears data field
+    public void clear(){
+        data = new int[0];
+    }
+
+    //add at index
+    public void add(int index, int value){
+        if (index <= data.length && index >= 0){
+            int[] newArr = new int[data.length+1];
+            boolean valueAddedFlag = false;
+            for (int i = 0; i<newArr.length; i++){
+                if (valueAddedFlag){
+                    newArr[i] = data[i-1];
+                }
+                else if (i == index){
+                    newArr[i] = value;
+                    valueAddedFlag = true;
+                }
+                else{
+                    newArr[i] = data[i];
+                }
+            }
+            data = newArr;
+        }
+        else{
+            System.out.println("Error! Index out of bounds. Cannot remove entry at index " + index + " for ArrayList length " + data.length);
+            throw new ArrayIndexOutOfBoundsException();
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "IntOnlyArrayList{" +
+                "data=" + Arrays.toString(data) +
+                '}';
     }
 }
