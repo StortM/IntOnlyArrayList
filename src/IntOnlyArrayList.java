@@ -18,7 +18,7 @@ public class IntOnlyArrayList {
         }*/
 
         //Med "throw new Exception"
-        if (index <= data.length && index >= 0){
+        if (index < data.length && index >= 0){
             return data[index];
         }
         else {
@@ -43,7 +43,7 @@ public class IntOnlyArrayList {
     }
 
     public void remove(int index){
-        if (index <= data.length && index >= 0){
+        if (index < data.length && index >= 0){
             int[] newArr = new int[data.length-1];
             boolean removedFlag = false;
 
@@ -75,9 +75,11 @@ public class IntOnlyArrayList {
 
     //add at index
     public void add(int index, int value){
-        if (index <= data.length && index >= 0){
+        if (index < data.length && index >= 0){
+
             int[] newArr = new int[data.length+1];
             boolean valueAddedFlag = false;
+
             for (int i = 0; i<newArr.length; i++){
                 if (valueAddedFlag){
                     newArr[i] = data[i-1];
