@@ -45,10 +45,16 @@ public class IntOnlyArrayList {
     public void remove(int index){
         if (index <= data.length && index >= 0){
             int[] newArr = new int[data.length-1];
+            boolean removedFlag = false;
 
             for (int i = 0; i<newArr.length; i++){
-                if (i == index){
-                    continue;
+                if (removedFlag){
+                    newArr[i] = data[i+1];
+                }
+
+                else if (i == index){
+                    removedFlag = true;
+                    i = i-1;
                 }
                 else{
                     newArr[i] = data[i];
